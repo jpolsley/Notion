@@ -12,8 +12,8 @@ export default function NotionWidget() {
           const jsonData = JSON.parse(data.substring(47).slice(0, -2)); // Clean Google Sheets JSON
           const rows = jsonData.table.rows;
           
-          // ✅ Youth Councils data is at Row 7 (index 6), Column J (index 9)
-          const ycData = rows[6]?.c[9]?.v?.trim() || "No Data Available";
+          // ✅ Youth Councils data is at Row 3 (index 2), Column J (index 9)
+          const ycData = rows[2]?.c[9]?.v?.trim() || "No Data Available";
 
           // Ensure correct formatting
           setProgress("Youth Councils Progress Report");
