@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function NotionWidget() {
   const [progress, setProgress] = useState(null);
-  const [report, setReport] = useState("Loading...");
+  const [report, setReport] = useState("");
 
   useEffect(() => {
     fetch("https://docs.google.com/spreadsheets/d/1hkR2C7pWXFK7RWO-lULuW2z84yiswqxnAQXhnfT_cRY/gviz/tq?tqx=out:json")
@@ -11,18 +11,13 @@ export default function NotionWidget() {
         try {
           const jsonData = JSON.parse(data.substring(47).slice(0, -2)); // Clean Google Sheets JSON
           const rows = jsonData.table.rows;
-          const value = rows[3]?.c[9]?.v || "0"; // Row 4 (index 3), Column J (index 9)
+          const value = rows[3]?.c[9]?.v?.trim() || "0"; // Row 4 (index 3), Column J (index 9)
 
-          setProgress(value);
-          setReport(
-            `YC Progress Report\n\n` +
-            `Total Tasks: 1\n` +
-            `To Do: 0\n` +
-            `In Progress: 1\n` +
-            `Done: 0\n` +
-            `Last Updated: Friday, November 22nd 2024\n` +
-            `Waiting On: ${value}%`
-          );
+          // Prevent duplicates by only setting the data once
+          if (progress !== value) {
+            setProgress(value);
+            setReport(`YC Progress Report\n\nTotal Tasks: 1\nTo Do: 0\nIn Progress: 1\nDone: 0\nLast Updated: Friday, November 22nd 2024\nWaiting On: ${value}%`);
+          }
         } catch (error) {
           setProgress(0);
           setReport("Error loading data");
