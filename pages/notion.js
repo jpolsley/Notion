@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export default function NotionWidget() {
-  const [progress, setProgress] = useState(null);
   const [report, setReport] = useState("");
 
   useEffect(() => {
@@ -18,17 +17,13 @@ export default function NotionWidget() {
           // ❌ Remove emojis using regex
           ycData = ycData.replace(/[\p{Extended_Pictographic}]/gu, ""); // Removes all emoji characters
 
-          // Ensure correct formatting
-          setProgress("Youth Councils Progress Report");
           setReport(ycData);
         } catch (error) {
-          setProgress("Error");
           setReport("Error loading data");
           console.error(error);
         }
       })
       .catch(error => {
-        setProgress("Error");
         setReport("Error fetching data");
         console.error(error);
       });
@@ -40,20 +35,19 @@ export default function NotionWidget() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      height: "100vh",
-      width: "100vw", // ✅ Fix scroll bar issue
+      width: "500px",  // ✅ Fixed widget width
+      height: "300px", // ✅ Fixed widget height
       backgroundColor: "#000",
       fontFamily: "Arial, sans-serif",
       textAlign: "left",
       color: "#fff",
       padding: "20px",
       whiteSpace: "pre-line",
-      overflow: "hidden" // ✅ Prevent scrolling
+      overflow: "hidden", // ✅ Prevent scrolling
+      borderRadius: "10px", // Optional: Rounded corners for a sleek look
+      boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.1)" // Optional: Soft glow effect
     }}>
-      <h2 style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "10px" }}>
-        {progress}
-      </h2>
-      <p style={{ fontSize: "18px", fontWeight: "normal", lineHeight: "1.5", maxWidth: "80%" }}>
+      <p style={{ fontSize: "18px", fontWeight: "normal", lineHeight: "1.5", maxWidth: "90%" }}>
         {report}
       </p>
     </div>
