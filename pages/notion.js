@@ -14,7 +14,15 @@ export default function NotionWidget() {
           const value = rows[3]?.c[9]?.v || "0"; // Row 4 (index 3), Column J (index 9)
 
           setProgress(value);
-          setReport(`YC Progress: ${value}%`);
+          setReport(
+            `YC Progress Report\n\n` +
+            `Total Tasks: 1\n` +
+            `To Do: 0\n` +
+            `In Progress: 1\n` +
+            `Done: 0\n` +
+            `Last Updated: Friday, November 22nd 2024\n` +
+            `Waiting On: ${value}%`
+          );
         } catch (error) {
           setProgress(0);
           setReport("Error loading data");
@@ -37,13 +45,17 @@ export default function NotionWidget() {
       height: "100vh",
       backgroundColor: "#000",
       fontFamily: "Arial, sans-serif",
-      textAlign: "center",
+      textAlign: "left",
       color: "#fff",
       padding: "20px",
+      whiteSpace: "pre-line"
     }}>
       <h2 style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "10px" }}>
-        {report}
+        YC Progress: {progress}%
       </h2>
+      <p style={{ fontSize: "18px", fontWeight: "normal", lineHeight: "1.5", maxWidth: "80%" }}>
+        {report}
+      </p>
       <div style={{
         width: "80%",
         backgroundColor: "#333",
