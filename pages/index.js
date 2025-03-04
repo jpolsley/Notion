@@ -34,13 +34,12 @@ export default function NotionWidget() {
       fontFamily: "Arial, sans-serif",
       textAlign: "center"
     }}>
-      <h1 style={{ fontSize: "32px", fontWeight: "bold", marginBottom: "10px" }}>Notion Progress Widget</h1>
       <p style={{ fontSize: "24px", fontWeight: "bold", color: "#4caf50" }}>
         {progress ? `Progress: ${progress}%` : "Loading..."}
       </p>
       <div style={{ width: "80%", backgroundColor: "#ddd", borderRadius: "10px", overflow: "hidden", marginTop: "10px" }}>
         <div style={{
-          width: `${progress}%`,
+          width: progress ? `${progress}%` : "0%",
           height: "20px",
           backgroundColor: "#4caf50",
           borderRadius: "10px",
